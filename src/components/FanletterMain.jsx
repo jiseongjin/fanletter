@@ -2,6 +2,7 @@ import GlobalStyle from "GlobalStyle";
 import React from "react";
 import styled from "styled-components";
 
+// styled-components
 const Main = styled.main`
   flex-direction: column;
 `;
@@ -27,6 +28,9 @@ const NameButton = styled.button`
   border-radius: 5px;
   font-size: 20px;
   text-align: center;
+  &:hover {
+    background-color: pink;
+  }
 `;
 
 const FillBox = styled.section`
@@ -107,6 +111,11 @@ const FanletterDetail = styled.p`
   text-overflow: ellipsis;
 `;
 
+// 아이브멤버
+const members = ["안유진", "가을", "레이", "장원영", "리즈", "이서"];
+
+// 더미데이터 가져오기
+
 function FanletterMain() {
   //   const date = new Date().toLocaleString();
   //   console.log(date);
@@ -116,12 +125,9 @@ function FanletterMain() {
       <GlobalStyle />
       <Main>
         <MemberNames>
-          <NameButton>안유진</NameButton>
-          <NameButton>가을</NameButton>
-          <NameButton>레이</NameButton>
-          <NameButton>장원영</NameButton>
-          <NameButton>리즈</NameButton>
-          <NameButton>이서</NameButton>
+          {members.map((member) => {
+            return <NameButton key={member}>{member}</NameButton>;
+          })}
         </MemberNames>
         <FillBox>
           <FillBoxTexts>
@@ -140,13 +146,14 @@ function FanletterMain() {
           </FillBoxTexts>
           <article>
             누구에게 보내실 건가요?&nbsp;
-            <select>
-              <option>안유진</option>
-              <option>가을</option>
-              <option>레이</option>
-              <option>장원영</option>
-              <option>리즈</option>
-              <option>이서</option>
+            <select id="option" name="option">
+              {members.map((member) => {
+                return (
+                  <option value={member} key={member}>
+                    {member}
+                  </option>
+                );
+              })}
             </select>
           </article>
           <RegisterButton>팬레터 등록</RegisterButton>
