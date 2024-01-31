@@ -1,124 +1,83 @@
-import GlobalStyle from "GlobalStyle";
-import React from "react";
-import styled from "styled-components";
-
-// styled-components
-const Main = styled.main`
-  flex-direction: column;
-`;
-const MemberNames = styled.section`
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  background-color: #ccd1cc;
-  margin: 10px 0;
-  padding: 10px;
-  gap: 10px;
-  border-radius: 10px;
-`;
-
-const NameButton = styled.button`
-  width: 100px;
-  padding: 5px;
-  background-color: black;
-  color: white;
-  border: 1px solid black;
-  border-radius: 5px;
-  font-size: 20px;
-  text-align: center;
-  &:hover {
-    background-color: pink;
-  }
-`;
-
-const FillBox = styled.section`
-  width: 600px;
-  background-color: #ccd1cc;
-  border-radius: 5px;
-  margin: 20px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-const FillBoxTexts = styled.article`
-  display: flex;
-`;
-
-const FillContent = styled.p`
-  width: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const NameText = styled.input`
-  width: 100%;
-  padding: 5px 10px;
-`;
-
-const ContentText = styled.input`
-  height: 80px;
-  width: 100%;
-  padding: 5px 10px;
-`;
-
-const RegisterButton = styled.button`
-  height: 30px;
-  background-color: black;
-  color: white;
-`;
-
-const FanLetterList = styled.section`
-  width: 600px;
-  background-color: black;
-  padding: 20px;
-  border-radius: 5px;
-  gap: 20px;
-`;
-
-const Profile = styled.img`
-  height: 100px;
-  width: 100px;
-  border-radius: 100%;
-`;
-
-const Fanletter = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid wheat;
-  padding: 10px;
-  color: white;
-`;
-
-const FanletterContent = styled.article`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-`;
-
-const FanletterDetail = styled.p`
-  width: 450px;
-  background-color: gray;
-  padding: 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
+import GlobalStyle from "components/GlobalStyle";
+import React, { useState } from "react";
+import {
+  Main,
+  MemberNames,
+  NameButton,
+  FillBox,
+  FillBoxTexts,
+  FillContent,
+  NameText,
+  ContentText,
+  RegisterButton,
+  FanLetterList,
+  Profile,
+  Fanletter,
+  FanletterContent,
+  FanletterDetail,
+} from "./Styled";
+import { useNavigate } from "react-router-dom";
 
 // 아이브멤버
 const members = ["안유진", "가을", "레이", "장원영", "리즈", "이서"];
 
 // 더미데이터 가져오기
+// fetch("fakeData.json")
+//   .then((response) => response.json())
+//   .then((data) => {
+//     console.log(data);
+//   });
 
 function FanletterMain() {
-  //   const date = new Date().toLocaleString();
+  // const date = new Date().toLocaleString();
   //   console.log(date);
+
+  // 닉네임,내용,보내는 멤버 useState
+  const [userName, setUserName] = useState("");
+  const [detail, setDetail] = useState("");
+  const [iveMember, setIveMember] = useState("안유진");
+
+  const onChangeName = (event) => {
+    const inputValue = event.target.value;
+    setUserName(inputValue);
+  };
+
+  const onChangeDetail = (event) => {
+    const inputValue = event.target.value;
+    setDetail(inputValue);
+  };
+
+  const onChangeIveName = (event) => {
+    const inputValue = event.target.value;
+    setIveMember(inputValue);
+  };
+
+  //팬레터 리스트
+  const [fanLetters, steFanLetters] = useState([]);
+
+  // 팬레터 추가 버튼
+  const addButton = () => {
+    const newLetter = {
+      id: crypto.randomUUID(),
+      name: userName,
+      detail,
+      iveName: iveMember,
+      date: new Date().toLocaleString(),
+    };
+    if (
+      (newLetter.name.length <= 0 && newLetter.name.length > 20) ||
+      (newLetter.detail.length <= 0 && newLetter.detail.length > 100)
+    ) {
+      alert(
+        "닉네임, 내용이 공백 또는 형식에 맞지 않습니다.(닉네임 최대 20자 / 내용 최대 100자)"
+      );
+    } else {
+      steFanLetters([...fanLetters, newLetter]);
+    }
+  };
+
+  // detail 페이지 이동
+  const navigate = useNavigate();
 
   return (
     <>
@@ -135,6 +94,8 @@ function FanletterMain() {
             <NameText
               type="text"
               placeholder="최대 20글자까지 작성할 수 있습니다."
+              value={userName}
+              onChange={onChangeName}
             />
           </FillBoxTexts>
           <FillBoxTexts>
@@ -142,11 +103,13 @@ function FanletterMain() {
             <ContentText
               type="text"
               placeholder="최대 100자까지만 작성할 수 있습니다."
+              value={detail}
+              onChange={onChangeDetail}
             />
           </FillBoxTexts>
           <article>
             누구에게 보내실 건가요?&nbsp;
-            <select id="option" name="option">
+            <select onChange={onChangeIveName} value={iveMember}>
               {members.map((member) => {
                 return (
                   <option value={member} key={member}>
@@ -156,9 +119,13 @@ function FanletterMain() {
               })}
             </select>
           </article>
-          <RegisterButton>팬레터 등록</RegisterButton>
+          <RegisterButton onClick={addButton}>팬레터 등록</RegisterButton>
         </FillBox>
-        <FanLetterList>
+        <FanLetterList
+          onClick={() => {
+            navigate("/detail");
+          }}
+        >
           <Fanletter>
             <Profile
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaW3SfW7ZP7a7QSiL5_hliZmyZukjKufZQwg&usqp=CAU"
