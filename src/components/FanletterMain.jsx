@@ -22,11 +22,11 @@ import { useNavigate } from "react-router-dom";
 const members = ["안유진", "가을", "레이", "장원영", "리즈", "이서"];
 
 // 더미데이터 가져오기
-// fetch("fakeData.json")
-//   .then((response) => response.json())
-//   .then((data) => {
-//     console.log(data);
-//   });
+fetch("/fakeData.json")
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+  });
 
 function FanletterMain() {
   // const date = new Date().toLocaleString();
@@ -65,8 +65,10 @@ function FanletterMain() {
       date: new Date().toLocaleString(),
     };
     if (
-      (newLetter.name.length <= 0 && newLetter.name.length > 20) ||
-      (newLetter.detail.length <= 0 && newLetter.detail.length > 100)
+      newLetter.name.length <= 0 ||
+      newLetter.name.length > 20 ||
+      newLetter.detail.length <= 0 ||
+      newLetter.detail.length > 100
     ) {
       alert(
         "닉네임, 내용이 공백 또는 형식에 맞지 않습니다.(닉네임 최대 20자 / 내용 최대 100자)"
@@ -74,6 +76,7 @@ function FanletterMain() {
     } else {
       steFanLetters([...fanLetters, newLetter]);
     }
+    console.log(fanLetters);
   };
 
   // detail 페이지 이동

@@ -108,3 +108,45 @@ export const FanletterDetail = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+
+export const DetailMain = styled.main`
+  margin-top: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const MoveHomeButton = styled.button`
+  position: absolute;
+  left: 30px;
+  background-color: black;
+  color: white;
+  width: 100px;
+  height: 50px;
+  border-color: aliceblue;
+  font-size: 15px;
+`;
+
+export const LetterDetailBox = styled.div`
+  width: 800px;
+  min-height: 500px;
+  padding: 16px;
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+`;
+
+export const LetterUser = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const UserImg = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  margin-right: 20px;
+`;
