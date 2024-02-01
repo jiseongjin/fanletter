@@ -150,3 +150,37 @@ export const UserImg = styled.img`
   border-radius: 100%;
   margin-right: 20px;
 `;
+
+export const ImgUserName = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 40px;
+  font: bold;
+`;
+
+export const DetailIveName = styled.p`
+  padding-top: 20px;
+  font-size: 25px;
+`;
+
+export const Detail = styled.p`
+  background-color: black;
+  padding: 15px;
+  font-size: 20px;
+  line-height: 40px;
+  border-radius: 10px;
+  margin: 20px 0;
+`;
+
+export const DetailBoxButtons = styled.footer`
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+`;
+
+export const BoxButton = styled.button`
+  background-color: black;
+  color: white;
+  font-size: 25px;
+  padding: 5px 10px;
+`;

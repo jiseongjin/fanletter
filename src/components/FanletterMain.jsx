@@ -63,17 +63,27 @@ function FanletterMain() {
       );
     } else {
       steFanLetters([...fanLetters, newLetter]);
+      setUserName("");
+      setDetail("");
     }
-    console.log(fanLetters);
   };
 
+  // 멤버 선택시 팬레터 변경
+  const selectMember = (event) => {
+    const inputValue = event.target.value;
+    console.log(inputValue);
+  };
   return (
     <>
       <GlobalStyle />
       <Main>
         <MemberNames>
           {members.map((member) => {
-            return <NameButton key={member}>{member}</NameButton>;
+            return (
+              <NameButton onClick={selectMember} key={member}>
+                {member}
+              </NameButton>
+            );
           })}
         </MemberNames>
         <FillBox>
