@@ -20,7 +20,7 @@ export const MemberNames = styled.section`
 export const NameButton = styled.button`
   width: 100px;
   padding: 5px;
-  background-color: black;
+  background-color: ${(props) => (props.selected ? "pink" : "black")};
   color: white;
   border: 1px solid black;
   border-radius: 5px;

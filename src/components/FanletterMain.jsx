@@ -13,9 +13,7 @@ import {
   RegisterButton,
 } from "./Styled";
 import Fanletters from "./Fanletters";
-
-// 아이브멤버
-const members = ["안유진", "가을", "레이", "장원영", "리즈", "이서"];
+import { members } from "assets/ivemembers";
 
 function FanletterMain() {
   // 닉네임,내용,보내는 멤버 useState
@@ -74,7 +72,19 @@ function FanletterMain() {
     setSelectedMember(inputValue);
   };
 
-  console.log(selectedMember);
+  // 팬레터 리스트 함수
+  const memberFilter = () => {
+    const filteringMember = fanLetters.filter(
+      (item) => selectedMember === "" || item.iveName === selectedMember
+    );
+    if (filteringMember.length > 0) {
+      return filteringMember.map((item) => (
+        <Fanletters key={item.id} item={item} />
+      ));
+    } else {
+      return <div>테스트</div>;
+    }
+  };
   return (
     <>
       <GlobalStyle />
@@ -83,7 +93,12 @@ function FanletterMain() {
         <MemberNames>
           {members.map((member) => {
             return (
-              <NameButton value={member} onClick={selectMembers} key={member}>
+              <NameButton
+                value={member}
+                onClick={selectMembers}
+                key={member}
+                selected={selectedMember === member}
+              >
                 {member}
               </NameButton>
             );
@@ -125,11 +140,7 @@ function FanletterMain() {
         </FillBox>
         <div>
           {/* 팬레터 리스트들 map */}
-          {fanLetters.map((item) => {
-            return selectedMember === "" || item.iveName === selectedMember ? (
-              <Fanletters key={item.id} item={item} />
-            ) : null;
-          })}
+          {memberFilter()}
         </div>
       </Main>
     </>
