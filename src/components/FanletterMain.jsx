@@ -22,25 +22,23 @@ function FanletterMain() {
   const [userName, setUserName] = useState("");
   const [detail, setDetail] = useState("");
   const [iveMember, setIveMember] = useState("안유진");
-
+  // 닉네임 입력
   const onChangeName = (event) => {
     const inputValue = event.target.value;
     setUserName(inputValue);
   };
-
+  // 내용 입력
   const onChangeDetail = (event) => {
     const inputValue = event.target.value;
     setDetail(inputValue);
   };
-
+  // 멤버 선택
   const onChangeIveName = (event) => {
     const inputValue = event.target.value;
     setIveMember(inputValue);
   };
-
   //팬레터 리스트
-  const [fanLetters, steFanLetters] = useState(fakeData);
-
+  const [fanLetters, setFanLetters] = useState(fakeData);
   // 팬레터 추가 버튼
   const addButton = () => {
     const newLetter = {
@@ -62,30 +60,36 @@ function FanletterMain() {
         "닉네임, 내용이 공백 또는 형식에 맞지 않습니다.(닉네임 최대 20자 / 내용 최대 100자)"
       );
     } else {
-      steFanLetters([...fanLetters, newLetter]);
+      setFanLetters([...fanLetters, newLetter]);
       setUserName("");
       setDetail("");
     }
   };
 
+  // 선택 멤버 저장
+  const [selectedMember, setSelectedMember] = useState("");
   // 멤버 선택시 팬레터 변경
-  const selectMember = (event) => {
+  const selectMembers = (event) => {
     const inputValue = event.target.value;
-    console.log(inputValue);
+    setSelectedMember(inputValue);
   };
+
+  console.log(selectedMember);
   return (
     <>
       <GlobalStyle />
       <Main>
+        {/* 멤버 선택 버튼 */}
         <MemberNames>
           {members.map((member) => {
             return (
-              <NameButton onClick={selectMember} key={member}>
+              <NameButton value={member} onClick={selectMembers} key={member}>
                 {member}
               </NameButton>
             );
           })}
         </MemberNames>
+        {/* 팬레터 작성  */}
         <FillBox>
           <FillBoxTexts>
             <FillContent>닉네임:&nbsp;</FillContent>
@@ -122,7 +126,9 @@ function FanletterMain() {
         <div>
           {/* 팬레터 리스트들 map */}
           {fanLetters.map((item) => {
-            return <Fanletters key={item.id} item={item} />;
+            return selectedMember === "" || item.iveName === selectedMember ? (
+              <Fanletters key={item.id} item={item} />
+            ) : null;
           })}
         </div>
       </Main>
