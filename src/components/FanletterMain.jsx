@@ -1,5 +1,6 @@
 import GlobalStyle from "components/GlobalStyle";
 import React, { useState } from "react";
+import fakeData from "assets/fakeData.json";
 import {
   Main,
   MemberNames,
@@ -10,28 +11,13 @@ import {
   NameText,
   ContentText,
   RegisterButton,
-  FanLetterList,
-  Profile,
-  Fanletter,
-  FanletterContent,
-  FanletterDetail,
 } from "./Styled";
-import { useNavigate } from "react-router-dom";
+import Fanletters from "./Fanletters";
 
 // 아이브멤버
 const members = ["안유진", "가을", "레이", "장원영", "리즈", "이서"];
 
-// 더미데이터 가져오기
-fetch("/fakeData.json")
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(data);
-  });
-
 function FanletterMain() {
-  // const date = new Date().toLocaleString();
-  //   console.log(date);
-
   // 닉네임,내용,보내는 멤버 useState
   const [userName, setUserName] = useState("");
   const [detail, setDetail] = useState("");
@@ -53,7 +39,7 @@ function FanletterMain() {
   };
 
   //팬레터 리스트
-  const [fanLetters, steFanLetters] = useState([]);
+  const [fanLetters, steFanLetters] = useState(fakeData);
 
   // 팬레터 추가 버튼
   const addButton = () => {
@@ -63,6 +49,8 @@ function FanletterMain() {
       detail,
       iveName: iveMember,
       date: new Date().toLocaleString(),
+      avatar:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaW3SfW7ZP7a7QSiL5_hliZmyZukjKufZQwg&usqp=CAU",
     };
     if (
       newLetter.name.length <= 0 ||
@@ -78,9 +66,6 @@ function FanletterMain() {
     }
     console.log(fanLetters);
   };
-
-  // detail 페이지 이동
-  const navigate = useNavigate();
 
   return (
     <>
@@ -124,28 +109,35 @@ function FanletterMain() {
           </article>
           <RegisterButton onClick={addButton}>팬레터 등록</RegisterButton>
         </FillBox>
-        <FanLetterList
-          onClick={() => {
-            navigate("/detail");
-          }}
-        >
-          <Fanletter>
-            <Profile
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaW3SfW7ZP7a7QSiL5_hliZmyZukjKufZQwg&usqp=CAU"
-              alt=""
-            />
-            <FanletterContent>
-              <p>sdafsddfasfdsfsgfdgdfgfdgdfgdf</p>
-              <p>dfgdfgfdgdfgdgdfgdfgdf</p>
-              <FanletterDetail>
-                gdfgdfgdfgdfgdfgdfgdfgdfgdfuhdsafjkdshfuhfasduwdhfjfguiehuidfheqiudhqiudhqwiudhqiwudhiqwdhqiwudhqigdfgdfgdf
-              </FanletterDetail>
-            </FanletterContent>
-          </Fanletter>
-        </FanLetterList>
+        <div>
+          {/* 팬레터 리스트들 map */}
+          {fanLetters.map((item) => {
+            return <Fanletters key={item.id} item={item} />;
+          })}
+        </div>
       </Main>
     </>
   );
 }
 
 export default FanletterMain;
+
+// <FanLetterList
+//   onClick={() => {
+//     navigate("/detail");
+//   }}
+// >
+//   <Fanletter>
+//     <Profile
+//       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaW3SfW7ZP7a7QSiL5_hliZmyZukjKufZQwg&usqp=CAU"
+//       alt=""
+//     />
+//     <FanletterContent>
+//       <p>sdafsddfasfdsfsgfdgdfgfdgdfgdf</p>
+//       <p>dfgdfgfdgdfgdgdfgdfgdf</p>
+//       <FanletterDetail>
+//         gdfgdfgdfgdfgdfgdfgdfgdfgdfuhdsafjkdshfuhfasduwdhfjfguiehuidfheqiudhqiudhqwiudhqiwudhiqwdhqiwudhqigdfgdfgdf
+//       </FanletterDetail>
+//     </FanletterContent>
+//   </Fanletter>
+// </FanLetterList>
