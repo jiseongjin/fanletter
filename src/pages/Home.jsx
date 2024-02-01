@@ -1,5 +1,5 @@
-import FanletterMain from "components/FanletterMain";
-import Header from "components/Header";
+import FanletterMain from "components/home/FanletterMain";
+import Header from "components/home/Header";
 import React from "react";
 
 function Home() {
