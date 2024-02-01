@@ -7,9 +7,9 @@ import {
   Profile,
 } from "./Styled";
 
-const Fanletters = () => {
+const Fanletters = ({ item }) => {
   // 디테일 페이지 이동
-  const navigate = useNavigate();
+  const navigate = useNavigate({ item });
   return (
     <FanLetterList
       onClick={() => {
@@ -17,16 +17,11 @@ const Fanletters = () => {
       }}
     >
       <Fanletter>
-        <Profile
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaW3SfW7ZP7a7QSiL5_hliZmyZukjKufZQwg&usqp=CAU"
-          alt=""
-        />
+        <Profile src={item.avatar} alt="" />
         <FanletterContent>
-          <p>sdafsddfasfdsfsgfdgdfgfdgdfgdf</p>
-          <p>dfgdfgfdgdfgdgdfgdfgdf</p>
-          <FanletterDetail>
-            gdfgdfgdfgdfgdfgdfgdfgdfgdfuhdsafjkdshfuhfasduwdhfjfguiehuidfheqiudhqiudhqwiudhqiwudhiqwdhqiwudhqigdfgdfgdf
-          </FanletterDetail>
+          <p>{item.name}</p>
+          <p>{new Date(item.date).toLocaleString()}</p>
+          <FanletterDetail>{item.detail}</FanletterDetail>
         </FanletterContent>
       </Fanletter>
     </FanLetterList>

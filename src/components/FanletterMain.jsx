@@ -48,7 +48,7 @@ function FanletterMain() {
       name: userName,
       detail,
       iveName: iveMember,
-      date: new Date().toLocaleString(),
+      date: Date(),
       avatar:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaW3SfW7ZP7a7QSiL5_hliZmyZukjKufZQwg&usqp=CAU",
     };
@@ -121,23 +121,3 @@ function FanletterMain() {
 }
 
 export default FanletterMain;
-
-// <FanLetterList
-//   onClick={() => {
-//     navigate("/detail");
-//   }}
-// >
-//   <Fanletter>
-//     <Profile
-//       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaW3SfW7ZP7a7QSiL5_hliZmyZukjKufZQwg&usqp=CAU"
-//       alt=""
-//     />
-//     <FanletterContent>
-//       <p>sdafsddfasfdsfsgfdgdfgfdgdfgdf</p>
-//       <p>dfgdfgfdgdfgdgdfgdfgdf</p>
-//       <FanletterDetail>
-//         gdfgdfgdfgdfgdfgdfgdfgdfgdfuhdsafjkdshfuhfasduwdhfjfguiehuidfheqiudhqiudhqwiudhqiwudhiqwdhqiwudhqigdfgdfgdf
-//       </FanletterDetail>
-//     </FanletterContent>
-//   </Fanletter>
-// </FanLetterList>

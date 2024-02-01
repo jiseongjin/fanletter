@@ -6,11 +6,19 @@ import {
   UserImg,
 } from "components/Styled";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-function DetailFanletter() {
+function DetailFanletter({ item }) {
+  const navigaet = useNavigate();
   return (
     <>
-      <MoveHomeButton>홈으로</MoveHomeButton>
+      <MoveHomeButton
+        onClick={() => {
+          navigaet("/");
+        }}
+      >
+        홈으로
+      </MoveHomeButton>
       <DetailMain>
         <LetterDetailBox>
           <section>

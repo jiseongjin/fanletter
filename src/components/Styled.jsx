@@ -75,7 +75,7 @@ export const FanLetterList = styled.section`
   background-color: black;
   padding: 20px;
   border-radius: 5px;
-  gap: 20px;
+  margin-bottom: 10px;
 `;
 
 export const Profile = styled.img`
