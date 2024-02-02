@@ -1,7 +1,7 @@
 import GlobalStyle from "components/GlobalStyle";
 import React, { useState } from "react";
 import fakeData from "assets/fakeData.json";
-import { Main } from "../Styled";
+import { Main, NoFanletter } from "../Styled";
 import Fanletters from "./Fanletters";
 import IveMembers from "./IveMembers";
 import FanletterWrite from "./FanletterWrite";
@@ -52,7 +52,11 @@ function FanletterMain() {
         <Fanletters key={item.id} item={item} />
       ));
     } else {
-      return <div>테스트</div>;
+      return (
+        <NoFanletter>
+          아직 등록된 팬레터가 없습니다. 첫 번째 팬레터의 주인공이 되주세요!
+        </NoFanletter>
+      );
     }
   };
   return (

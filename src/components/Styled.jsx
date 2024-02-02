@@ -184,3 +184,15 @@ export const BoxButton = styled.button`
   font-size: 25px;
   padding: 5px 10px;
 `;
+
+export const NoFanletter = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  width: 600px;
+  height: 50px;
+  border-radius: 5px;
+  color: white;
+  font-size: 17px;
+`;
