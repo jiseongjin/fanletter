@@ -3,29 +3,24 @@ import Home from "pages/Home";
 import fakeData from "assets/fakeData.json";
 import DetailFanletter from "pages/DetailFanletter";
 import { useState } from "react";
+import { FanLettersContext } from "context/FanLettersContext";
 
 const Router = () => {
   //팬레터 리스트
   const [fanLetters, setFanLetters] = useState(fakeData);
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home fanLetters={fanLetters} setFanLetters={setFanLetters} />
-          }
-        />
-        <Route
-          path="detail/:id"
-          element={
-            <DetailFanletter
-              fanLetters={fanLetters}
-              setFanLetters={setFanLetters}
-            />
-          }
-        />
-      </Routes>
+      <FanLettersContext.Provider
+        value={{
+          fanLetters,
+          setFanLetters,
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="detail/:id" element={<DetailFanletter />} />
+        </Routes>
+      </FanLettersContext.Provider>
     </BrowserRouter>
   );
 };

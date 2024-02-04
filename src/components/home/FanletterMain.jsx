@@ -1,11 +1,13 @@
 import GlobalStyle from "components/GlobalStyle";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Main, NoFanletter } from "../Styled";
 import Fanletters from "./Fanletters";
 import IveMembers from "./IveMembers";
 import FanletterWrite from "./FanletterWrite";
+import { FanLettersContext } from "context/FanLettersContext";
 
-function FanletterMain({ fanLetters, setFanLetters }) {
+function FanletterMain() {
+  const contextData = useContext(FanLettersContext);
   // 팬레터 추가 버튼
   const addButton = ({ userName, detail, iveMember }) => {
     const newLetter = {
@@ -27,7 +29,7 @@ function FanletterMain({ fanLetters, setFanLetters }) {
         "닉네임, 내용이 공백 또는 형식에 맞지 않습니다.(닉네임 최대 20자 / 내용 최대 100자)"
       );
     } else {
-      setFanLetters([...fanLetters, newLetter]);
+      contextData.setFanLetters([...contextData.fanLetters, newLetter]);
     }
   };
 
@@ -41,7 +43,7 @@ function FanletterMain({ fanLetters, setFanLetters }) {
 
   // 팬레터 리스트 함수
   const memberFilter = () => {
-    const filteringMember = fanLetters.filter(
+    const filteringMember = contextData.fanLetters.filter(
       (item) => selectedMember === "" || item.iveName === selectedMember
     );
     if (filteringMember.length > 0) {
