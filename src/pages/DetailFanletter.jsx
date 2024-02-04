@@ -10,12 +10,20 @@ import {
   MoveHomeButton,
   UserImg,
 } from "components/Styled";
-import { FanLettersContext } from "context/FanLettersContext";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  addLetter,
+  deleteLetter,
+} from "shared/redux/modules/fanLettersReducer";
 
 function DetailFanletter() {
-  const contextData = useContext(FanLettersContext);
+  // redux 데이터
+  const reduxData = useSelector((state) => {
+    return state.fanLettersReducer;
+  });
+  const dispatch = useDispatch();
 
   const navigaete = useNavigate();
   const location = useLocation();
@@ -42,10 +50,10 @@ function DetailFanletter() {
     if (foundData.detail === test) {
       alert("수정된 부분이 없습니다.");
     } else {
-      const addFanLetter = contextData.fanLetters.map((item) =>
+      const addFanLetter = reduxData.map((item) =>
         item.id === foundData.id ? { ...item, detail: test } : item
       );
-      contextData.setFanLetters(addFanLetter);
+      dispatch(addLetter(addFanLetter));
       setOnFix(true);
       navigaete("/");
     }
@@ -53,10 +61,10 @@ function DetailFanletter() {
   // 삭제 버튼
   const deleteButton = () => {
     if (window.confirm("정말로 삭제하겠습니까?")) {
-      const updatFanletters = contextData.fanLetters.filter(
+      const updatFanletters = reduxData.filter(
         (item) => item.id !== foundData.id
       );
-      contextData.setFanLetters(updatFanletters);
+      dispatch(deleteLetter(updatFanletters));
       navigaete("/");
     }
   };
