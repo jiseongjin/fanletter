@@ -10,23 +10,58 @@ import {
   MoveHomeButton,
   UserImg,
 } from "components/Styled";
-import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-function DetailFanletter() {
-  const navigaet = useNavigate();
+function DetailFanletter({ fanLetters, setFanLetters }) {
+  const navigaete = useNavigate();
   const location = useLocation();
   const foundData = location.state.item;
 
+  console.log(foundData);
+
+  const [onFix, setOnFix] = useState(true);
+
+  // 수정 버튼
+  const editButton = () => {
+    setOnFix(false);
+    console.log("생각중");
+  };
+
+  const [test, setTest] = useState(foundData.detail);
+  const changDetail = (event) => {
+    const inputValue = event.target.value;
+    setTest(inputValue);
+  };
+
+  //수정 완료 버튼
+  const addButton = () => {
+    if (foundData.detail === test) {
+      alert("수정된 부분이 없습니다.");
+    } else {
+      const addFanLetter = fanLetters.map((item) =>
+        item.id === foundData.id ? { ...item, detail: test } : item
+      );
+      setFanLetters(addFanLetter);
+      setOnFix(true);
+      navigaete("/");
+    }
+  };
+  // 삭제 버튼
+  const deleteButton = () => {
+    if (window.confirm("정말로 삭제하겠습니까?")) {
+      const updatFanletters = fanLetters.filter(
+        (item) => item.id !== foundData.id
+      );
+      setFanLetters(updatFanletters);
+      navigaete("/");
+    }
+  };
   return (
     <>
-      <MoveHomeButton
-        onClick={() => {
-          navigaet("/");
-        }}
-      >
-        홈으로
-      </MoveHomeButton>
+      <Link to={"/"}>
+        <MoveHomeButton>홈으로</MoveHomeButton>
+      </Link>
       <DetailMain>
         <LetterDetailBox>
           <section>
@@ -38,11 +73,19 @@ function DetailFanletter() {
               <time>{new Date(foundData.date).toLocaleString()}</time>
             </LetterUser>
             <DetailIveName>To: {foundData.iveName}</DetailIveName>
-            <Detail>{foundData.detail}</Detail>
+            <Detail disabled={onFix} onChange={changDetail}>
+              {test}
+            </Detail>
           </section>
           <DetailBoxButtons>
-            <BoxButton>수정</BoxButton>
-            <BoxButton>삭제</BoxButton>
+            {onFix ? (
+              <>
+                <BoxButton onClick={editButton}>수정</BoxButton>
+                <BoxButton onClick={deleteButton}>삭제</BoxButton>
+              </>
+            ) : (
+              <BoxButton onClick={addButton}>수정완료</BoxButton>
+            )}
           </DetailBoxButtons>
         </LetterDetailBox>
       </DetailMain>

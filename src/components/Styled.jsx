@@ -163,13 +163,15 @@ export const DetailIveName = styled.p`
   font-size: 25px;
 `;
 
-export const Detail = styled.p`
+export const Detail = styled.textarea`
+  width: 100%;
+  height: 300px;
   background-color: black;
-  padding: 15px;
   font-size: 20px;
   line-height: 40px;
   border-radius: 10px;
   margin: 20px 0;
+  color: white;
 `;
 
 export const DetailBoxButtons = styled.footer`

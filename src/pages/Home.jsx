@@ -2,11 +2,11 @@ import FanletterMain from "components/home/FanletterMain";
 import Header from "components/home/Header";
 import React from "react";
 
-function Home() {
+function Home({ fanLetters, setFanLetters }) {
   return (
     <>
       <Header />
-      <FanletterMain />
+      <FanletterMain fanLetters={fanLetters} setFanLetters={setFanLetters} />
     </>
   );
 }

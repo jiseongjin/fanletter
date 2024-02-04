@@ -1,24 +1,21 @@
 import GlobalStyle from "components/GlobalStyle";
 import React, { useState } from "react";
-import fakeData from "assets/fakeData.json";
 import { Main, NoFanletter } from "../Styled";
 import Fanletters from "./Fanletters";
 import IveMembers from "./IveMembers";
 import FanletterWrite from "./FanletterWrite";
 
-function FanletterMain() {
-  //팬레터 리스트
-  const [fanLetters, setFanLetters] = useState(fakeData);
+function FanletterMain({ fanLetters, setFanLetters }) {
   // 팬레터 추가 버튼
   const addButton = ({ userName, detail, iveMember }) => {
     const newLetter = {
-      id: crypto.randomUUID(),
-      name: userName,
-      detail,
-      iveName: iveMember,
       date: Date(),
+      name: userName,
       avatar:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaW3SfW7ZP7a7QSiL5_hliZmyZukjKufZQwg&usqp=CAU",
+      detail,
+      iveName: iveMember,
+      id: crypto.randomUUID(),
     };
     if (
       newLetter.name.length <= 0 ||
@@ -59,6 +56,7 @@ function FanletterMain() {
       );
     }
   };
+
   return (
     <>
       <GlobalStyle />
