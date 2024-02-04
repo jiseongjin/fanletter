@@ -10,10 +10,13 @@ import {
   MoveHomeButton,
   UserImg,
 } from "components/Styled";
-import React, { useState } from "react";
+import { FanLettersContext } from "context/FanLettersContext";
+import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-function DetailFanletter({ fanLetters, setFanLetters }) {
+function DetailFanletter() {
+  const contextData = useContext(FanLettersContext);
+
   const navigaete = useNavigate();
   const location = useLocation();
   const foundData = location.state.item;
@@ -39,10 +42,10 @@ function DetailFanletter({ fanLetters, setFanLetters }) {
     if (foundData.detail === test) {
       alert("수정된 부분이 없습니다.");
     } else {
-      const addFanLetter = fanLetters.map((item) =>
+      const addFanLetter = contextData.fanLetters.map((item) =>
         item.id === foundData.id ? { ...item, detail: test } : item
       );
-      setFanLetters(addFanLetter);
+      contextData.setFanLetters(addFanLetter);
       setOnFix(true);
       navigaete("/");
     }
@@ -50,10 +53,10 @@ function DetailFanletter({ fanLetters, setFanLetters }) {
   // 삭제 버튼
   const deleteButton = () => {
     if (window.confirm("정말로 삭제하겠습니까?")) {
-      const updatFanletters = fanLetters.filter(
+      const updatFanletters = contextData.fanLetters.filter(
         (item) => item.id !== foundData.id
       );
-      setFanLetters(updatFanletters);
+      contextData.setFanLetters(updatFanletters);
       navigaete("/");
     }
   };

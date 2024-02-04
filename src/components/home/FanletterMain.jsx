@@ -7,6 +7,7 @@ import FanletterWrite from "./FanletterWrite";
 import { FanLettersContext } from "context/FanLettersContext";
 
 function FanletterMain() {
+  // useContext 데이터
   const contextData = useContext(FanLettersContext);
   // 팬레터 추가 버튼
   const addButton = ({ userName, detail, iveMember }) => {
