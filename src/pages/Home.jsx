@@ -1,7 +1,14 @@
+import FanletterMain from "components/home/FanletterMain";
+import Header from "components/home/Header";
 import React from "react";
 
 function Home() {
-  return <div>Home</div>;
+  return (
+    <>
+      <Header />
+      <FanletterMain />
+    </>
+  );
 }
 
 export default Home;
