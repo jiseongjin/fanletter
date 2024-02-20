@@ -1,19 +1,19 @@
 import fakeData from "assets/fakeData.json";
 
 const LETER_PLUS = "PLUS";
-const ADD = "ADD";
+const EDIT = "EDIT";
 const DELETE = "DELETE";
 
-export const letterFlus = (newLetter) => {
+export const letterPlus = (newLetter) => {
   return {
     type: LETER_PLUS,
     payload: newLetter,
   };
 };
 
-export const addLetter = (addFanLetter) => {
+export const editedButton = (addFanLetter) => {
   return {
-    type: ADD,
+    type: EDIT,
     payload: addFanLetter,
   };
 };
@@ -29,7 +29,7 @@ const fanLettersReducer = (state = fakeData, action) => {
   switch (action.type) {
     case LETER_PLUS:
       return [...state, action.payload];
-    case ADD:
+    case EDIT:
       return action.payload;
     case DELETE:
       return action.payload;
