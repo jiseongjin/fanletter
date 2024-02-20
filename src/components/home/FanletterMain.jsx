@@ -5,7 +5,7 @@ import Fanletters from "./Fanletters";
 import IveMembers from "./IveMembers";
 import FanletterWrite from "./FanletterWrite";
 import { useDispatch, useSelector } from "react-redux";
-import { letterFlus } from "../../shared/redux/modules/fanLettersReducer.js";
+import { letterPlus } from "../../shared/redux/modules/fanLettersReducer.js";
 
 function FanletterMain() {
   // redux 데이터
@@ -38,7 +38,7 @@ function FanletterMain() {
         "닉네임, 내용이 공백 또는 형식에 맞지 않습니다.(닉네임 최대 20자 / 내용 최대 100자)"
       );
     } else {
-      dispatch(letterFlus(newLetter));
+      dispatch(letterPlus(newLetter));
     }
   };
 
@@ -51,12 +51,12 @@ function FanletterMain() {
   };
 
   // 팬레터 리스트 함수
-  const memberFilter = () => {
-    const filteringMember = reduxData.filter(
+  const renderFilteredMembers = () => {
+    const filteredLetters = reduxData.filter(
       (item) => selectedMember === "" || item.iveName === selectedMember
     );
-    if (filteringMember.length > 0) {
-      return filteringMember.map((item) => (
+    if (filteredLetters.length > 0) {
+      return filteredLetters.map((item) => (
         <Fanletters key={item.id} item={item} />
       ));
     } else {
@@ -81,7 +81,7 @@ function FanletterMain() {
         <FanletterWrite addButton={addButton} />
         <div>
           {/* 팬레터 리스트들 map */}
-          {memberFilter()}
+          {renderFilteredMembers()}
         </div>
       </Main>
     </>

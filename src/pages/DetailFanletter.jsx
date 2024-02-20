@@ -14,7 +14,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
-  addLetter,
+  editedButton,
   deleteLetter,
 } from "shared/redux/modules/fanLettersReducer";
 
@@ -25,7 +25,7 @@ function DetailFanletter() {
   });
   const dispatch = useDispatch();
 
-  const navigaete = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const foundData = location.state.item;
 
@@ -39,23 +39,23 @@ function DetailFanletter() {
     console.log("생각중");
   };
 
-  const [test, setTest] = useState(foundData.detail);
+  const [editText, setEditText] = useState(foundData.detail);
   const changDetail = (event) => {
     const inputValue = event.target.value;
-    setTest(inputValue);
+    setEditText(inputValue);
   };
 
   //수정 완료 버튼
   const addButton = () => {
-    if (foundData.detail === test) {
+    if (foundData.detail === editText) {
       alert("수정된 부분이 없습니다.");
     } else {
       const addFanLetter = reduxData.map((item) =>
-        item.id === foundData.id ? { ...item, detail: test } : item
+        item.id === foundData.id ? { ...item, detail: editText } : item
       );
-      dispatch(addLetter(addFanLetter));
+      dispatch(editedButton(addFanLetter));
       setOnFix(true);
-      navigaete("/");
+      navigate("/");
     }
   };
   // 삭제 버튼
@@ -65,7 +65,7 @@ function DetailFanletter() {
         (item) => item.id !== foundData.id
       );
       dispatch(deleteLetter(updatFanletters));
-      navigaete("/");
+      navigate("/");
     }
   };
   return (
@@ -85,7 +85,7 @@ function DetailFanletter() {
             </LetterUser>
             <DetailIveName>To: {foundData.iveName}</DetailIveName>
             <Detail disabled={onFix} onChange={changDetail}>
-              {test}
+              {editText}
             </Detail>
           </section>
           <DetailBoxButtons>
